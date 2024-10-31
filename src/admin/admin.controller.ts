@@ -102,4 +102,20 @@ export class AdminController {
   async deleteCategory(@Param('id') id: number) {
     await this.categoryService.remove(id);
   }
+
+  // View a specific blog by ID
+  @Get('blogs/view/:id')
+  @Render('admin/view-blog')
+  async viewBlog(@Param('id') id: number) {
+    const blog = await this.blogService.findOne(id);
+    return { blog };
+  }
+
+  // View a specific category by ID
+  @Get('categories/view/:id')
+  @Render('admin/view-category')
+  async viewCategory(@Param('id') id: number) {
+    const category = await this.categoryService.findOne(id);
+    return { category };
+  }
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Blog</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h1>View Blog</h1>
+        <h2><%= blog.title %></h2>
+        <p><strong>Category:</strong> <%= blog.category.name %></p> <!-- Assuming you have a category relationship -->
+        <p><strong>Content:</strong></p>
+        <p><%= blog.content %></p>
+        <p><strong>Created At:</strong> <%= blog.createdAt.toISOString().split('T')[0] %></p> <!-- Format date -->
+        <a href="/admin/blogs" class="button">Back to Blogs</a> <!-- Button to go back -->
+    </div>
+</body>
+</html>

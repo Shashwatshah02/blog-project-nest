@@ -12,4 +12,8 @@ export class UpdateBlogDto {
     @IsOptional()
     @IsInt()
     categoryId?: number | null;
+
+    @IsOptional()
+    @IsString()
+    image?: string;
 }

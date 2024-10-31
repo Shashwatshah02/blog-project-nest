@@ -18,4 +18,7 @@ export class Blog {
     @ManyToOne(() => Category, (category) => category.blogs, { nullable: true, onDelete: 'SET NULL', eager: true })
     category: Category;
 
+    @Column()  // Add the image column
+    image: string;
+
 }

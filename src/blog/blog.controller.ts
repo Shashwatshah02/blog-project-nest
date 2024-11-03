@@ -7,7 +7,7 @@ import { join, extname } from 'path';
 import { diskStorage } from 'multer';
 import * as fs from 'fs';
 
-@Controller('blog')
+@Controller('blogs')
 export class BlogController {
     constructor(private readonly blogService: BlogService) { }
 

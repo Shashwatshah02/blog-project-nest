@@ -11,6 +11,7 @@ export class CreateBlogDto {
   content: string;
 
   @IsInt()
+  @IsNotEmpty()
   categoryId: number;
 
   @IsNotEmpty() // Make the image field required

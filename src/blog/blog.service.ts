@@ -14,14 +14,14 @@ export class BlogService {
     ) { }
 
     async create(createBlogDto: CreateBlogDto): Promise<Blog> {
-        const { title, content, categoryId } = createBlogDto;
+        const { title, content, categoryId, image } = createBlogDto;
         const category = await this.categoryRepository.findOne({ where: { id: categoryId } });
 
         if (!category) {
             throw new NotFoundException(`Category with ID ${categoryId} not found`);
         }
 
-        const blog = this.blogRepository.create({ title, content, category });
+        const blog = this.blogRepository.create({ title, content, category, image});
         return await this.blogRepository.save(blog);
     }
 
@@ -34,7 +34,7 @@ export class BlogService {
     }
 
     async update(id: number, updateBlogDto: UpdateBlogDto): Promise<Blog> {
-        const { title, content, categoryId } = updateBlogDto;
+        const { title, content, categoryId, image } = updateBlogDto;
         const blog = await this.blogRepository.findOne({ where: { id } });
 
         if (!blog) {
@@ -51,6 +51,7 @@ export class BlogService {
 
         blog.title = title;
         blog.content = content;
+        blog.image = image;
         return await this.blogRepository.save(blog);
     }
 

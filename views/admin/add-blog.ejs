@@ -3,27 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add New Blog</title>
 </head>
 <body>
     <h1>Add New Blog</h1>
-<!-- views/admin/add-blog.ejs -->
-<form action="/admin/blogs" method="POST" enctype="multipart/form-data">
-  <div>
-      <label>Title</label>
-      <input type="text" name="title" required>
-  </div>
-  <div>
-      <label>Content</label>
-      <textarea name="content" required></textarea>
-  </div>
-  <div>
-      <label>Image</label>
-      <input type="file" name="image" accept="image/*" required> <!-- Make image input required -->
-  </div>
-  <button type="submit">Add Blog</button>
-</form>
 
-
+    <!-- Blog creation form -->
+    <form action="/admin/blogs" method="POST" enctype="multipart/form-data">
+        <div>
+            <label>Title</label>
+            <input type="text" name="title" required>
+        </div>
+        <div>
+            <label>Content</label>
+            <textarea name="content" required></textarea>
+        </div>
+        <div>
+            <label>Category</label>
+            <select name="categoryId" required> <!-- Dropdown for selecting category -->
+                <option value="" disabled selected>Select a Category</option>
+                <% categories.forEach(category => { %>
+                    <option value="<%= category.id %>"><%= category.name %></option>
+                <% }) %>
+            </select>
+        </div>
+        <div>
+            <label>Image</label>
+            <input type="file" name="image" accept="image/*" required> <!-- Make image input required -->
+        </div>
+        <button type="submit">Add Blog</button>
+    </form>
 </body>
 </html>

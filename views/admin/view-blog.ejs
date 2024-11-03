@@ -9,12 +9,25 @@
 <body>
     <div class="container">
         <h1>View Blog</h1>
+
+        <!-- Blog title -->
         <h2><%= blog.title %></h2>
-        <p><strong>Category:</strong> <%= blog.category.name %></p> <!-- Assuming you have a category relationship -->
+
+        <!-- Blog image -->
+        <% if (blog.image) { %>
+            <img src="/public<%= blog.image %>" alt="Blog Image" style="max-width: 100%; height: auto;" /> <!-- Display image -->
+        <% } else { %>
+            <p><em>No image available</em></p> <!-- Message if no image -->
+        <% } %>
+
+        <!-- Category, Content, and Date -->
+        <p><strong>Category:</strong> <%= blog.category ? blog.category.name : 'Uncategorized' %></p>
         <p><strong>Content:</strong></p>
         <p><%= blog.content %></p>
         <p><strong>Created At:</strong> <%= blog.createdAt.toISOString().split('T')[0] %></p> <!-- Format date -->
-        <a href="/admin/blogs" class="button">Back to Blogs</a> <!-- Button to go back -->
+
+        <!-- Back to Blogs button -->
+        <a href="/admin/blogs" class="button">Back to Blogs</a>
     </div>
 </body>
 </html>

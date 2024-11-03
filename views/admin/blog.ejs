@@ -3,38 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Blogs</title>
 </head>
 <body>
     <h1>Blogs</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Category</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% blogs.forEach(blog => { %>
-      <tr>
-        <td><%= blog.title %></td>
-        <td><%= blog.category ? blog.category.name : 'Uncategorized' %></td>
-        <td>
-          <!-- View button -->
-          <a href="/admin/blogs/view/<%= blog.id %>">View</a>
-          <!-- Edit button -->
-          <a href="/admin/blogs/edit/<%= blog.id %>">Edit</a>
-          <!-- Delete button -->
-          <form action="/admin/blogs/delete/<%= blog.id %>" method="POST" style="display:inline;">
-            <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
-          </form>
-        </td>
-      </tr>
-    <% }) %>
-  </tbody>
-</table>
-<a href="/admin/blogs/add">Add New Blog</a>
-
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% blogs.forEach(blog => { %>
+                <tr>
+                    <td>
+                        <% if (blog.image) { %>
+                            <img src="/public<%= blog.image %>" alt="Blog Image" style="width: 100px; height: auto;">
+                        <% } else { %>
+                            No Image
+                        <% } %>
+                    </td>
+                    <td><%= blog.title %></td>
+                    <td><%= blog.category ? blog.category.name : 'Uncategorized' %></td>
+                    <td>
+                        <!-- View button -->
+                        <a href="/admin/blogs/view/<%= blog.id %>">View</a>
+                        <!-- Edit button -->
+                        <a href="/admin/blogs/edit/<%= blog.id %>">Edit</a>
+                        <!-- Delete button -->
+                        <form action="/admin/blogs/delete/<%= blog.id %>" method="POST" style="display:inline;">
+                            <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <a href="/admin/blogs/add">Add New Blog</a>
 </body>
 </html>

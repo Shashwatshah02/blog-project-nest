@@ -33,6 +33,13 @@ export class BlogService {
         return await this.blogRepository.findOne({ where: { id } })
     }
 
+    async findByCategoryId(categoryId: number): Promise<Blog[]> {
+        return await this.blogRepository.find({
+          where: { category: { id: categoryId } }, // Adjust if using nested relations
+          relations: ['category'], // Include related entities, if necessary
+        });
+      }
+
     async update(id: number, updateBlogDto: UpdateBlogDto): Promise<Blog> {
         const { title, content, categoryId, image } = updateBlogDto;
         const blog = await this.blogRepository.findOne({ where: { id } });

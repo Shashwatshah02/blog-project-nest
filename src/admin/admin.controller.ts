@@ -19,30 +19,31 @@ export class AdminController {
 
   // View all blogs
   @Get('blogs')
-  @Render('admin/blog')
+  @Render('theme/blog-list')
   async getBlogs() {
     const blogs = await this.blogService.findAll();
+    // console.log(blogs);
     return { blogs };
   }
 
   // View all categories
   @Get('categories')
-  @Render('admin/categories')
+  @Render('theme/category-list')
   async getCategories() {
     const categories = await this.categoryService.findAll();
     return { categories };
   }
 
   // Render add blog form
-  @Get('blogs/add')
-  @Render('admin/add-blog')
+  @Get('blogs/create')
+  @Render('theme/blog-create')
   async addBlogForm() {
     const categories = await this.categoryService.findAll();
     return { categories };
   }
 
   // Handle new blog post
-  @Post('blogs')
+  @Post('blogs/create')
   @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
       destination: './public/images', // Save to public/images
@@ -64,26 +65,28 @@ export class AdminController {
   }
 
   // Render add category form
-  @Get('categories/add')
-  @Render('admin/add-category')
+  @Get('categories/create')
+  @Render('theme/category-create')
   addCategoryForm() {
     return {};
   }
 
   // Handle new category post
-  @Post('categories')
-  @Redirect('/admin/categories')
+  @Post('categories/create')
+  @Redirect('theme/category-list')
   async createCategory(@Body() createCategoryDto: CreateCategoryDto) {
     await this.categoryService.create(createCategoryDto);
   }
 
   // Render update blog form
   @Get('blogs/edit/:id')
-  @Render('admin/edit-blog')
+  @Render('theme/edit-blog')
   async editBlogForm(@Param('id') id: number) {
     const blog = await this.blogService.findOne(id);
     const categories = await this.categoryService.findAll();
+    console.log(blog.category.id);
     return { blog, categories };
+
   }
 
   // Handle blog update
@@ -125,10 +128,11 @@ export class AdminController {
 
   // Render update category form
   @Get('categories/edit/:id')
-  @Render('admin/edit-category')
+  @Render('theme/category-edit')
   async editCategoryForm(@Param('id') id: number) {
     const category = await this.categoryService.findOne(id);
-    return { category };
+    console.log(category);
+    return { category, id };
   }
 
   // Handle category update

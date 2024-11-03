@@ -1,0 +1,127 @@
+<!-- Page Sidebar Ends-->
+<div class="page-body">
+  <div class="container-fluid">
+    <div class="page-header">
+      <div class="row">
+        <div class="col-sm-6">
+          <h3>Add User</h3>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="">Home</a></li>
+            <li class="breadcrumb-item">Apps </li>
+            <li class="breadcrumb-item active">Add User</li>
+          </ol>
+        </div>
+        <div class="col-sm-6">
+          <!-- Bookmark Start-->
+
+          <!-- Bookmark Ends-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Container-fluid starts-->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <form action="/admin/customer/create" method="POST" enctype="multipart/form-data" id="customerForm"
+              class="form theme-form">
+              <!-- Name input -->
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label>Name</label>
+                    <input class="form-control" type="text" name="customerName" required placeholder="Enter Name">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Password input -->
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label>Password - (Min of 6 letters)</label>
+                    <input class="form-control" type="password" name="customerPassword" placeholder="Enter Password"
+                      required minlength="6">
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Email, Phone, Country inputs -->
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label>Email</label>
+                    <input class="form-control" type="email" name="customerEmail" required placeholder="Enter Email">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label>Phone</label>
+                    <input class="form-control" type="text" name="customerPhone" placeholder="Enter Phone" required
+                      maxlength="10" pattern="\d{10}" title="Phone number must be exactly 10 digits.">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label>Country</label>
+                    <input class="form-control" type="text" name="customerCountry" required placeholder="Enter Country">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Address, Zip Code, City inputs -->
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label>Address</label>
+                    <input class="form-control" type="text" required name="customerAddress" placeholder="Enter Address">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label>Zip Code</label>
+                    <input class="form-control" type="text" name="customerZipCode" required placeholder="Enter Zip-code"
+                      maxlength="6" pattern="\d{6}" title="Must be a 6-digit number.">
+                  </div>
+
+                </div>
+                <div class="col-sm-4">
+                  <div class="mb-3">
+                    <label>City</label>
+                    <input class="form-control" type="text" name="customerCity" required placeholder="Enter City">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Profile Picture Upload -->
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label>Upload Profile Picture</label>
+                    <input class="form-control" type="file" name="customerProfilePicture" required accept="image/*">
+                  </div>
+                </div>
+              </div>
+              <% if (errorMessage) { %>
+                <div class="text-danger">
+                  <%= errorMessage %>
+                </div>
+                <% } %>
+                  <!-- Submit and Cancel buttons -->
+                  <div class="row">
+                    <div class="col">
+                      <div class="text-end">
+                        <button type="submit" class="btn btn-secondary me-3">Add</button>
+                        <!-- <a class="btn btn-danger" href="#">Cancel</a> -->
+                      </div>
+                    </div>
+                  </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

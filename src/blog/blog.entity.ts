@@ -9,7 +9,7 @@ export class Blog {
     @Column()
     title: string;
 
-    @Column()
+    @Column({ type: 'varchar', length: 5000 })
     content: string;
 
     @Column({ default: () => 'CURRENT_TIMESTAMP' })

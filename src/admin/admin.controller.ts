@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Render, Redirect, Body, UseInterceptors, UploadedFile, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Param, Render, Redirect, Body, UseInterceptors, UploadedFile, BadRequestException, UseGuards } from '@nestjs/common';
 import { BlogService } from '../blog/blog.service';
 import { CategoryService } from '../category/category.service';
 import { CreateBlogDto } from '../blog/dto/create-blog.dto';
@@ -9,20 +9,23 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
 import * as fs from 'fs';
+import { AuthenticatedGuard } from '../auth/authenticated.guard';
 
 @Controller('admin')
+// @UseGuards(AuthenticatedGuard) // Apply guard to all routes in this controller
 export class AdminController {
   constructor(
     private readonly blogService: BlogService,
     private readonly categoryService: CategoryService,
   ) { }
 
+  // Now all routes below require authentication
+  
   // View all blogs
   @Get('blogs')
   @Render('theme/blog-list')
   async getBlogs() {
     const blogs = await this.blogService.findAll();
-    // console.log(blogs);
     return { blogs };
   }
 
@@ -73,7 +76,7 @@ export class AdminController {
 
   // Handle new category post
   @Post('categories/create')
-  @Redirect('theme/category-list')
+  @Redirect('/admin/categories')
   async createCategory(@Body() createCategoryDto: CreateCategoryDto) {
     await this.categoryService.create(createCategoryDto);
   }
@@ -84,13 +87,10 @@ export class AdminController {
   async editBlogForm(@Param('id') id: number) {
     const blog = await this.blogService.findOne(id);
     const categories = await this.categoryService.findAll();
-    console.log(blog.category.id);
     return { blog, categories };
-
   }
 
   // Handle blog update
-
   @Post('blogs/edit/:id')
   @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
@@ -125,13 +125,11 @@ export class AdminController {
     await this.blogService.update(id, updateBlogDto);
   }
 
-
   // Render update category form
   @Get('categories/edit/:id')
   @Render('theme/category-edit')
   async editCategoryForm(@Param('id') id: number) {
     const category = await this.categoryService.findOne(id);
-    console.log(category);
     return { category, id };
   }
 

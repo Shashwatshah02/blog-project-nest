@@ -104,7 +104,7 @@
                         </div>  
                         <div class="col mb-3">
                           <label>Category</label>
-                          <select class="form-select" name="category">
+                          <select class="form-select" name="categoryId">
                             <% categories.forEach(category => { %>
                               <option value="<%= blog.category.id %>"
                                 <%= blog && blog.category && blog.category.id === category.id ? 'selected' : '' %>>

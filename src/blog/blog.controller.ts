@@ -50,6 +50,7 @@ export class BlogController {
     createBlogDto.image = `/images/${image.filename}`; // Store the image path in DTO
 
     const blog = await this.blogService.create(createBlogDto);
+    console.log(blog);
     return res.status(201).json(blog);
   }
 

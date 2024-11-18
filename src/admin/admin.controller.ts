@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Render, Redirect, Body, UseInterceptors, UploadedFile, BadRequestException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Param, Render, Redirect, Body, UseInterceptors, UploadedFile, BadRequestException, UseGuards, Request } from '@nestjs/common';
 import { BlogService } from '../blog/blog.service';
 import { CategoryService } from '../category/category.service';
 import { CreateBlogDto } from '../blog/dto/create-blog.dto';
@@ -10,6 +10,7 @@ import { diskStorage } from 'multer';
 import { extname, join } from 'path';
 import * as fs from 'fs';
 import { AuthenticatedGuard } from '../auth/authenticated.guard';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('admin')
 // @UseGuards(AuthenticatedGuard) // Apply guard to all routes in this controller
@@ -20,7 +21,13 @@ export class AdminController {
   ) { }
 
   // Now all routes below require authentication
-  
+  @Get('profile')
+  @UseGuards(AuthGuard('local')) // Apply the local strategy guard
+  getProfile(@Request() req) {
+    console.log('Authenticated user:', req.user); // This should log the user object from the session
+    return req.user;
+  }
+
   // View all blogs
   @Get('blogs')
   @Render('theme/blog-list')

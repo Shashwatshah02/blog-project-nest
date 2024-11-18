@@ -123,8 +123,7 @@
                           <div class="col">
                             <div class="mb-3">
                               <label>Blog Description</label>
-                              <textarea class="form-control" name="content" id="exampleFormControlTextarea4"
-                                required rows="3"></textarea>
+                              <textarea class="form-control" name="content" id="editor" required rows="3"></textarea>
                             </div>
                           </div>
                         </div>
@@ -163,6 +162,20 @@
 
       </div>
     </div>
+    <script>
+tinymce.init({
+  selector: '#editor',
+  plugins: 'link image code save',
+  toolbar: 'undo redo | bold italic | save | alignleft aligncenter alignright | code',
+  setup: (editor) => {
+    editor.on('change', function () {
+      tinymce.triggerSave(); // Updates the hidden textarea
+    });
+  }
+});
+
+    </script>
+
     <!-- latest jquery-->
     <script src="/assets/js/jquery-3.5.1.min.js"></script>
     <!-- feather icon js-->

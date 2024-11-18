@@ -30,13 +30,16 @@ async function bootstrap() {
   app.use(passport.initialize()); // Initialize Passport
   app.use(passport.session()); // Use session for Passport
 
-  passport.serializeUser((user: any, done) => {
-    done(null, user.username); // Save the username in the session
+ 
+  app.use((req, res, next) => {
+    console.log('Session:', req.session);
+    console.log('User:', req.user);
+    next();
   });
-  
-  passport.deserializeUser((username: string, done) => {
-    // Here you would typically fetch the user from the database using the username
-    done(null, { username }); // You can replace this with actual user retrieval logic
+
+  app.enableCors({
+    origin: 'http://localhost:3001', // Frontend URL
+    credentials: true, // Allow cookies and sessions
   });
   
 

@@ -55,13 +55,13 @@
   <div class="page-wrapper" id="pageWrapper">
     <!-- Page Header Start-->
     <div class="page-main-header">
-      
+
     </div>
     <!-- Page Header Ends                              -->
     <!-- Page Body Start-->
     <div class="page-body-wrapper horizontal-menu">
       <!-- Page Sidebar Start-->
-      
+
       <!-- Page Sidebar Ends-->
       <div class="page-body">
         <div class="container-fluid">
@@ -107,58 +107,63 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive product-table">
-                      <table class="display" id="basic-1">
-                          <thead>
-                              <tr>
-                                  <th>Image</th>
-                                  <th>Title</th>
-                                  <th>Description</th>
-                                  <th>Category</th>
-                                  <th>Created At</th>
-                                  <th>Action</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <% blogs.reverse().forEach(blog => { %>
-                                  <tr>
-                                      <td>
-                                          <% if (blog.image) { %>
-                                              <img src="/public/<%= blog.image %>" alt="Blog Image" class="img-thumbnail"
-                                                  style="width: 100px; height: auto;">
-                                          <% } %>
-                                      </td>
-                                      <td>
-                                          <a href="blog-page.html"><span>
-                                              <%= blog.title %>
-                                          </span></a>
-                                      </td>
-                                      <td>
-                                          <span>
-                                              <%= blog.content %>
-                                          </span>
-                                      </td>
-                                      <td>
-                                        <%= blog.category ? blog.category.name : 'No Category' %>
-                                      </td>
-                                      <td class="font-success">
-                                          <%= new Date(blog.createdAt).toLocaleDateString() %> <!-- Format the date as needed -->
-                                      </td>
-                                      <td>
-                                          <form action="/admin/blogs/delete/<%= blog.id %>" method="POST"
-                                              style="display: inline;" onsubmit="return confirmDelete();">
-                                              <button class="btn btn-danger btn-xs" type="submit" title="Delete">Delete</button>
-                                          </form>
-                                          <a href="/admin/blogs/edit/<%= blog.id %>">
-                                              <button class="btn btn-primary btn-xs" type="button" title="Edit">Edit</button>
-                                          </a>
-                                      </td>
-                                  </tr>
-                              <% }) %>
-                          </tbody>
-                      </table>
+                    <table class="display" id="basic-1">
+                      <thead>
+                        <tr>
+                          <th>Image</th>
+                          <th>Title</th>
+                          <th>Description</th>
+                          <th>Category</th>
+                          <th>Created At</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% blogs.reverse().forEach(blog=> { %>
+                          <tr>
+                            <td>
+                              <% if (blog.image) { %>
+                                <img src="/public/<%= blog.image %>" alt="Blog Image" class="img-thumbnail"
+                                  style="width: 100px; height: auto;">
+                                <% } %>
+                            </td>
+                            <td>
+                              <a href="blog-page.html"><span>
+                                  <%= blog.title %>
+                                </span></a>
+                            </td>
+                            <td>
+                              <span>
+                                <%= blog.content.length> 200 ? blog.content.substring(0, 200) + '...' : blog.content %>
+                                  <% if (blog.content.length> 500) { %>
+                                    <a href="/admin/blogs/edit/<%= blog.id %>" style="color: blue; text-decoration: underline;">View
+                                      More</a>
+                                    <% } %>
+                              </span>
+
+                            </td>
+                            <td>
+                              <%= blog.category ? blog.category.name : 'No Category' %>
+                            </td>
+                            <td class="font-success">
+                              <%= new Date(blog.createdAt).toLocaleDateString() %> <!-- Format the date as needed -->
+                            </td>
+                            <td>
+                              <form action="/admin/blogs/delete/<%= blog.id %>" method="POST" style="display: inline;"
+                                onsubmit="return confirmDelete();">
+                                <button class="btn btn-danger btn-xs" type="submit" title="Delete">Delete</button>
+                              </form>
+                              <a href="/admin/blogs/edit/<%= blog.id %>">
+                                <button class="btn btn-primary btn-xs" type="button" title="Edit">Edit</button>
+                              </a>
+                            </td>
+                          </tr>
+                          <% }) %>
+                      </tbody>
+                    </table>
                   </div>
-              </div>
-              
+                </div>
+
               </div>
             </div>
             <!-- Individual column searching (text inputs) Ends-->
@@ -168,7 +173,7 @@
         <!-- Container-fluid Ends-->
       </div>
       <!-- footer start-->
-      
+
     </div>
   </div>
   <!-- latest jquery-->
